@@ -18,7 +18,8 @@ struct RowView: View {
                 CardView(card: card, onTapGesture: {
                     onTapCard(card.id)
                 })
-                .aspectRatio(1.6, contentMode: .fit)
+                .opacity(card.placeholder ? 0 : 1)
+                .aspectRatio(1.4, contentMode: .fit)
             }
         }
     }

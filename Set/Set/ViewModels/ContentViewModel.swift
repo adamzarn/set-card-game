@@ -93,22 +93,44 @@ struct ContentViewModel {
     ]
     
     var shuffledCards: [Card]
-    
-    init() {
-        self.shuffledCards = cards.shuffled()
+    var selectedCards: [Card] {
+        return shuffledCards.filter { $0.selected }
     }
+    var cardsInPlay: [Card] {
+        return shuffledCards.filter { $0.inPlay && !$0.discarded }
+    }
+    var numberOfColumns: Int {
+        switch cardsInPlay.count {
+        case 1...3: return 1
+        case 4...12: return 2
+        case 13...27: return 3
+        default: return 4
+        }
+    }
+    var indexOfLastDealtCard: Int = -1
+    var allCardsDealt: Bool = false
     
-    var numberOfColumns: Int = 3
+    var setIsSelected: Bool {
+        guard selectedCards.count == 3 else { return false }
+        guard Set(selectedCards.map { $0.numberAttribute }).satisfySetRequirement else { return false }
+        guard Set(selectedCards.map { $0.shapeAttribute }).satisfySetRequirement else { return false }
+        guard Set(selectedCards.map { $0.shadingAttribute }).satisfySetRequirement else { return false }
+        guard Set(selectedCards.map { $0.colorAttribute }).satisfySetRequirement else { return false }
+        return true
+    }
     
     var rows: [Row] {
         var rows: [Row] = []
         var id = 1
-        for i in stride(from: 0, to: shuffledCards.count, by: numberOfColumns) {
+        for i in stride(from: 0, to: cardsInPlay.count, by: numberOfColumns) {
             var rowCards: [Card] = []
             for j in 0..<numberOfColumns {
-                if shuffledCards.count > i+j {
-                    rowCards.append(shuffledCards[i+j])
+                if cardsInPlay.count > i+j {
+                    rowCards.append(cardsInPlay[i+j])
                 }
+            }
+            while rowCards.count < numberOfColumns {
+                rowCards.append(Card(placeholder: true))
             }
             guard rowCards.count > 0 else { continue }
             let row = Row(id: id, cards: rowCards)
@@ -118,9 +140,58 @@ struct ContentViewModel {
         return rows
     }
     
+    init() {
+        self.shuffledCards = cards.shuffled()
+        self.dealCards(number: 12)
+    }
+    
     mutating func toggleSelected(withId id: String) {
         if let index = shuffledCards.firstIndex(where: { $0.id == id }) {
+            if shuffledCards[index].selected == false {
+                deselectNonMatchingCardsIfNecessary()
+            }
             shuffledCards[index].selected.toggle()
         }
+        discardSetIfNecesasry()
+    }
+    
+    mutating func discardSetIfNecesasry() {
+        if setIsSelected {
+            selectedCards.forEach { card in
+                if let index = shuffledCards.firstIndex(where: { $0.id == card.id }) {
+                    shuffledCards[index].inPlay = false
+                    shuffledCards[index].selected = false
+                    shuffledCards[index].discarded = true
+                }
+            }
+        }
+    }
+    
+    mutating func deselectNonMatchingCardsIfNecessary() {
+        if setIsSelected == false && selectedCards.count == 3 {
+            selectedCards.forEach { card in
+                if let index = shuffledCards.firstIndex(where: { $0.id == card.id }) {
+                    shuffledCards[index].selected = false
+                }
+            }
+        }
+    }
+    
+    mutating func dealCards(number: Int) {
+        (0..<number).forEach { _ in
+            let index = indexOfLastDealtCard + 1
+            guard index < shuffledCards.count else {
+                allCardsDealt = true
+                return
+            }
+            shuffledCards[index].inPlay = true
+            indexOfLastDealtCard = index
+        }
+    }
+}
+
+extension Set {
+    var satisfySetRequirement: Bool {
+        return count == 1 || count == 3
     }
 }

@@ -11,14 +11,27 @@ struct ContentView: View {
     @State var viewModel: ContentViewModel = ContentViewModel()
     
     var body: some View {
-        List {
-            ForEach(viewModel.rows, id: \.id) { row in
-                RowView(cards: row.cards, onTapCard: { id in
-                    viewModel.toggleSelected(withId: id)
-                }).hideListRowSeparator()
+        VStack {
+            List {
+                ForEach(viewModel.rows, id: \.id) { row in
+                    RowView(cards: row.cards, onTapCard: { id in
+                        viewModel.toggleSelected(withId: id)
+                    }).hideListRowSeparator()
+                }
             }
+            .listStyle(PlainListStyle())
+            ButtonsView(allCardsDealt: viewModel.allCardsDealt,
+                        dealCards: dealCards,
+                        reset: reset)
         }
-        .listStyle(PlainListStyle())
+    }
+    
+    func dealCards(number: Int) {
+        viewModel.dealCards(number: number)
+    }
+    
+    func reset() {
+        viewModel = ContentViewModel()
     }
 }
 

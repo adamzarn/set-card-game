@@ -24,6 +24,8 @@
 		DB4A9C25272BBCD60033D681 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A9C24272BBCD60033D681 /* Row.swift */; };
 		DB4A9C28272BC3580033D681 /* HideListRowSeparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A9C27272BC3580033D681 /* HideListRowSeparators.swift */; };
 		DB4A9C2A272BC4EE0033D681 /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A9C29272BC4EE0033D681 /* RowView.swift */; };
+		DB4A9C2C272C42FF0033D681 /* CustomButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A9C2B272C42FF0033D681 /* CustomButtonStyle.swift */; };
+		DB4A9C2F272C48300033D681 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A9C2E272C48300033D681 /* ButtonsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		DB4A9C24272BBCD60033D681 /* Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		DB4A9C27272BC3580033D681 /* HideListRowSeparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideListRowSeparators.swift; sourceTree = "<group>"; };
 		DB4A9C29272BC4EE0033D681 /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
+		DB4A9C2B272C42FF0033D681 /* CustomButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyle.swift; sourceTree = "<group>"; };
+		DB4A9C2E272C48300033D681 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 				DB4A9C20272BB4280033D681 /* Models */,
 				DB4A9C08272B8C970033D681 /* Attributes */,
 				DB4A9C26272BC3470033D681 /* ViewModifiers */,
+				DB4A9C2D272C43230033D681 /* Styles */,
 				DB4A9BFE272B8C540033D681 /* Assets.xcassets */,
 				DB4A9C00272B8C540033D681 /* Preview Content */,
 			);
@@ -114,6 +119,7 @@
 			children = (
 				DB4A9BFC272B8C520033D681 /* ContentView.swift */,
 				DB4A9C29272BC4EE0033D681 /* RowView.swift */,
+				DB4A9C2E272C48300033D681 /* ButtonsView.swift */,
 				DB4A9C11272B8E190033D681 /* CardView.swift */,
 				DB4A9C1D272BB3DE0033D681 /* ShapeView.swift */,
 			);
@@ -152,6 +158,14 @@
 				DB4A9C27272BC3580033D681 /* HideListRowSeparators.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		DB4A9C2D272C43230033D681 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A9C2B272C42FF0033D681 /* CustomButtonStyle.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,9 +243,11 @@
 				DB4A9C0E272B8CD80033D681 /* ShadingAttribute.swift in Sources */,
 				DB4A9C16272B95720033D681 /* Shape+Extension.swift in Sources */,
 				DB4A9BFD272B8C520033D681 /* ContentView.swift in Sources */,
+				DB4A9C2C272C42FF0033D681 /* CustomButtonStyle.swift in Sources */,
 				DB4A9C25272BBCD60033D681 /* Row.swift in Sources */,
 				DB4A9C14272B8F010033D681 /* Diamond.swift in Sources */,
 				DB4A9C1A272B98EF0033D681 /* ContentViewModel.swift in Sources */,
+				DB4A9C2F272C48300033D681 /* ButtonsView.swift in Sources */,
 				DB4A9C12272B8E190033D681 /* CardView.swift in Sources */,
 				DB4A9C1E272BB3DE0033D681 /* ShapeView.swift in Sources */,
 				DB4A9BFB272B8C520033D681 /* SetApp.swift in Sources */,
