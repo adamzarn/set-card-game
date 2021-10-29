@@ -12,6 +12,14 @@ struct CardView: View {
     var card: Card
     let onTapGesture: () -> Void
     
+    var borderColor: Color {
+        return card.selected ? Color.blue : Color.gray
+    }
+    
+    var borderWidth: CGFloat {
+        return card.selected ? 4 : 1
+    }
+    
     var padding: CGFloat {
         return 8
     }
@@ -76,8 +84,12 @@ struct CardView: View {
                     .opacity(thirdOpacity)
             }
             .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(borderColor, lineWidth: borderWidth)
+            )
         }
+        .contentShape(Rectangle())
         .onTapGesture(perform: onTapGesture)
     }
 }

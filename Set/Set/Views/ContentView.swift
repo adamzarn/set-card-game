@@ -14,7 +14,7 @@ struct ContentView: View {
         List {
             ForEach(viewModel.rows, id: \.id) { row in
                 RowView(cards: row.cards, onTapCard: { id in
-                    viewModel.removeCard(withId: id)
+                    viewModel.toggleSelected(withId: id)
                 }).hideListRowSeparator()
             }
         }

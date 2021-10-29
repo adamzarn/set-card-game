@@ -118,7 +118,9 @@ struct ContentViewModel {
         return rows
     }
     
-    mutating func removeCard(withId id: String) {
-        shuffledCards.removeAll(where: { $0.id == id })
+    mutating func toggleSelected(withId id: String) {
+        if let index = shuffledCards.firstIndex(where: { $0.id == id }) {
+            shuffledCards[index].selected.toggle()
+        }
     }
 }
