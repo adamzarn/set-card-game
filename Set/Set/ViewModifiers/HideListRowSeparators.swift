@@ -10,11 +10,12 @@ import SwiftUI
 
 struct HideListRowSeparator: ViewModifier {
     func body(content: Content) -> some View {
-        if #available(iOS 15.0, *) {
-            content.listRowSeparator(.hidden)
-        } else {
-            content
-        }
+        content
+//        if #available(iOS 15.0, *) {
+//            content.listRowSeparator(.hidden)
+//        } else {
+//            content
+//        }
     }
 }
 

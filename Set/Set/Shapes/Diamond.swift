@@ -23,7 +23,7 @@ struct Diamond: Shape {
 struct Diamond_Previews: PreviewProvider {
     static var previews: some View {
         Diamond()
-            .fill(.red, strokeBorder: .red, lineWidth: 2, fillOpacity: 0.5)
+            .fill(Color.red, strokeBorder: Color.red, lineWidth: 2, fillOpacity: 0.5)
             .previewLayout(.fixed(width: 200, height: 300))
     }
 }

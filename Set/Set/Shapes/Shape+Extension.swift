@@ -15,7 +15,7 @@ extension Shape {
                                                     fillOpacity: CGFloat) -> some View {
         self
             .stroke(strokeStyle, lineWidth: lineWidth)
-            .background(self.fill(fillStyle).opacity(fillOpacity))
+            .background(self.fill(fillStyle).opacity(Double(fillOpacity)))
     }
     
     func style(with card: Card) -> some View {

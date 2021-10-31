@@ -76,12 +76,12 @@ struct CardView: View {
             HStack(spacing: spacing) {
                 ShapeView(card: card)
                     .offset(firstOffset(width: geometry.size.width))
-                    .opacity(firstOpacity)
+                    .opacity(Double(firstOpacity))
                 ShapeView(card: card)
                     .offset(firstOffset(width: geometry.size.width))
-                    .opacity(secondOpacity)
+                    .opacity(Double(secondOpacity))
                 ShapeView(card: card)
-                    .opacity(thirdOpacity)
+                    .opacity(Double(thirdOpacity))
             }
             .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
             .overlay(
