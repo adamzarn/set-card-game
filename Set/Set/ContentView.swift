@@ -1,12 +1,85 @@
 //
-//  CardView.swift
+//  ContentView.swift
 //  Set
 //
 //  Created by Adam Zarn on 10/28/21.
 //
 
-import Foundation
 import SwiftUI
+
+struct ContentView: View {
+    @State var viewModel: ContentViewModel = ContentViewModel()
+    
+    var body: some View {
+        VStack {
+            List {
+                ForEach(viewModel.rows, id: \.id) { row in
+                    RowView(cards: row.cards, onTapCard: { id in
+                        viewModel.toggleSelected(withId: id)
+                    })
+                }
+            }
+            .listStyle(PlainListStyle())
+            ButtonsView(allCardsDealt: viewModel.allCardsDealt,
+                        dealCards: dealCards,
+                        reset: reset)
+        }
+    }
+    
+    func dealCards(number: Int) {
+        viewModel.dealCards(number: number)
+    }
+    
+    func reset() {
+        viewModel = ContentViewModel()
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+struct RowView: View {
+    let cards: [Card]
+    let onTapCard: (String) -> Void
+    
+    var body: some View {
+        HStack {
+            ForEach(cards, id: \.id) { card in
+                CardView(card: card, onTapGesture: {
+                    onTapCard(card.id)
+                })
+                .opacity(card.placeholder ? 0 : 1)
+                .aspectRatio(1.4, contentMode: .fit)
+            }
+        }
+    }
+}
+
+struct ButtonsView: View {
+    let allCardsDealt: Bool
+    let dealCards: (Int) -> Void
+    let reset: () -> Void
+    
+    var body: some View {
+        HStack {
+            Button(action: reset, label: {
+                Text("Reset")
+            }).buttonStyle(CustomButtonStyle())
+            Spacer()
+            if allCardsDealt {
+                Text("All cards have been dealt")
+            } else {
+                Button(action: { dealCards(3) }, label: {
+                    Text("Deal 3 More Cards")
+                }).buttonStyle(CustomButtonStyle())
+            }
+        }
+        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+    }
+}
 
 struct CardView: View {
     var card: Card
@@ -99,6 +172,18 @@ struct CardView_Previews: PreviewProvider {
         Group {
             CardView(card: Card(.one, .diamond, .none, .purple), onTapGesture: {})
                 .previewLayout(.fixed(width: 200, height: 120))
+        }
+    }
+}
+
+struct ShapeView: View {
+    var card: Card
+    
+    var body: some View {
+        switch card.shapeAttribute {
+        case .diamond: Diamond().style(with: card)
+        case .oval: Capsule().style(with: card)
+        case .rectangle: Rectangle().style(with: card)
         }
     }
 }
